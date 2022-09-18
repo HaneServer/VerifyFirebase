@@ -5,11 +5,12 @@ import com.google.cloud.firestore.QuerySnapshot
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import java.util.*
 
 class Join (var plugin: VerifyFirebase) : Listener {
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        val value = checkUser(event.player.name)
+        val value = checkUser(event.player.uniqueId)
         plugin.logger.info("ユーザーネーム" + value?.name + " さんが入室しました")
         if (value != null) {
             event.player.sendMessage("はね鯖へようこそ！\n~ 現在のあなたの情報 ~\n| Name: ${value.name}\n| Level: ${value.level}")
@@ -18,10 +19,10 @@ class Join (var plugin: VerifyFirebase) : Listener {
         }
     }
 
-    fun checkUser(name: String): Value? {
+    fun checkUser(uuid: UUID): Value? {
         try {
             val future: ApiFuture<QuerySnapshot> =
-                plugin.db.collection("users").whereEqualTo("Minecraft", name).get()
+                plugin.db.collection("users").whereEqualTo("Minecraft", uuid.toString()).get()
             val documents = future.get().documents
 
             val value = Value()
