@@ -14,7 +14,7 @@ class Join (var plugin: VerifyFirebase) : Listener {
         if (value != null) {
             event.player.sendMessage("はね鯖へようこそ！\n~ 現在のあなたの情報 ~\n| Name: ${value.name}\n| Level: ${value.level}")
         } else {
-            event.player.kickPlayer("ユーザー情報の取得に失敗しました。ユーザー登録してください\nhtps://hanesansaikyou.com")
+            event.player.kickPlayer("ユーザー情報の取得に失敗しました。ユーザー登録してください\n${plugin.config.getString("URL")}")
         }
     }
 
