@@ -1,0 +1,4 @@
+name: VerifyFirebase
+version: '${project.version}'
+main: net.serveron.hane.verifyfirebase.VerifyFirebase
+api-version: 1.19
